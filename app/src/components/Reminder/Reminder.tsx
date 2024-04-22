@@ -12,7 +12,7 @@ const Reminder = () => {
       }
   
       try {
-        const response = await axios.post('/api/lembretes', {
+        const response = await axios.post('/api/reminder', {
           name,
           date
         });
