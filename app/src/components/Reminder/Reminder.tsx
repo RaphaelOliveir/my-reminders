@@ -5,22 +5,12 @@ const Reminder = () => {
  const [name, setName] = useState('');
  const [date, setDate] = useState('');
 
- const criarLembrete = async () => {
-    if (!name || !date) {
-        alert('Por favor, preencha todos os campos.');
-        return;
-      }
-  
+ const criarLembrete = async () => {  
       try {
-        const response = await axios.post('/api/reminder', {
-          name,
-          date
+        await axios.post('http://localhost:5285/api/Reminder/AddReminder', {
+          name: "Comprar coisas",
+          date: "2021-12-31"
         });
-  
-        if (response.status === 200) {
-          alert('Lembrete criado com sucesso!');
-          // Limpar o formulário ou atualizar a lista de lembretes
-        }
       } catch (error) {
         console.error('Erro ao criar o lembrete:', error);
         alert('Erro ao criar o lembrete.');
