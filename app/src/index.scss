@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+$primary-background: rgb(2, 0, 36);
+$gradient-background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(64, 66, 88, 1) 100%);
+$color: #c1c8e5;
+$font-family: 'Roboto', sans-serif;
+
+:root {
+  font-family: #{$font-family};
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  background: $primary-background;
+  background: $gradient-background;
+  color: #{$color};
+}

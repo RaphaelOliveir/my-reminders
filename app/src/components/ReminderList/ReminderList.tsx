@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+import './ReminderListStyle.scss';
 
 interface Lembrete {
   id: number;
@@ -12,7 +14,9 @@ const ListaLembretes = () => {
 
   useEffect(() => {
     const fetchLembretes = async () => {
-      const response = await axios.get('http://localhost:5285/api/Reminder/GetReminders');
+      const response = await axios.get(
+        "http://localhost:5285/api/Reminder/GetReminders"
+      );
       setLembretes(response.data);
     };
 
@@ -20,13 +24,18 @@ const ListaLembretes = () => {
   }, []);
 
   return (
-    <ul>
-      {lembretes.map((lembrete, index) => (
-        <li key={index}>{lembrete.nome} - {lembrete.data}</li>
-      ))}
-    </ul>
+    <>
+      <h2>Lista de lembretes:</h2>
+
+      <ul>
+        {lembretes.map((lembrete, index) => (
+          <li key={index}>
+            {lembrete.nome} - {lembrete.data}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 
 export default ListaLembretes;
-
