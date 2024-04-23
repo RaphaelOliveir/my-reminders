@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
 
 import "./ReminderStyle.scss";
 
-const Reminder = () => {
+const Reminder = ({ onAdicionar }) => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
 
@@ -22,6 +23,8 @@ const Reminder = () => {
           },
         }
       );
+
+      onAdicionar({ nome: name, data: date })
     } catch (error) {
       console.error("Erro ao criar o lembrete:", error);
       alert("Erro ao criar o lembrete.");

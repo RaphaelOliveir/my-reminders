@@ -24,7 +24,7 @@ function App() {
 
       <hr />
 
-      <ListaLembretes lembretes={lembretes} />
+      <ListaLembretes lembretes={lembretes} atualizarLembretes={adicionarLembrete} />
     </>
   )
 }

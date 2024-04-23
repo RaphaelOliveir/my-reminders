@@ -1,18 +1,13 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./ReminderListStyle.scss";
 
-interface Lembrete {
-  id: number;
-  nome: string;
-  data: string;
-}
+const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
+ const [lembretes, setLembretes] = useState([]);
 
-const ListaLembretes = () => {
-  const [lembretes, setLembretes] = useState<Lembrete[]>([]);
-
-  useEffect(() => {
+ useEffect(() => {
     const fetchLembretes = async () => {
       const response = await axios.get(
         "http://localhost:5285/api/Reminder/GetReminders"
@@ -21,9 +16,9 @@ const ListaLembretes = () => {
     };
 
     fetchLembretes();
-  }, []);
+ }, [meusLembretes, atualizarLembretes]);
 
-  return (
+ return (
     <>
       <h2>Lista de lembretes:</h2>
 
@@ -48,7 +43,8 @@ const ListaLembretes = () => {
         );
       })}
     </>
-  );
+ );
 };
 
 export default ListaLembretes;
+
