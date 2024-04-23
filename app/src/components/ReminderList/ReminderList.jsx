@@ -18,6 +18,16 @@ const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
     fetchLembretes();
  }, [meusLembretes, atualizarLembretes]);
 
+ // Função para formatar a data
+ const formatarData = (data) => {
+    const dataFormatada = new Date(data).toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+    return dataFormatada;
+ };
+
  return (
     <>
       <h2>Lista de lembretes:</h2>
@@ -33,7 +43,7 @@ const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
 
         return (
           <React.Fragment key={lembrete.id}>
-            {agrupar && <h3>{lembrete.data}</h3>}
+            {agrupar && <h3>{formatarData(lembrete.data)}</h3>}
             <ul>
               <li>
                 <div className="card">{lembrete.nome}</div>
@@ -47,4 +57,3 @@ const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
 };
 
 export default ListaLembretes;
-
