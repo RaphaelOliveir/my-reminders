@@ -11,7 +11,7 @@ const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
  useEffect(() => {
     const fetchLembretes = async () => {
       const response = await axios.get(
-        "http://localhost:5285/api/Reminder/GetReminders"
+        "https://reminders-api.azurewebsites.net/api/Reminder/GetReminders"
       );
       setLembretes(response.data);
     };
@@ -22,7 +22,7 @@ const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
  const deleteReminder = async (id) => {
   try {
     await axios.delete(
-      `http://localhost:5285/api/Reminder/DeleteReminder?id=${id}`
+      `https://reminders-api.azurewebsites.net/api/Reminder/DeleteReminder?id=${id}`
     ).then(reponse => {
       alert(reponse.data)
     })

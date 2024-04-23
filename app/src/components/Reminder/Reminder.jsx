@@ -27,7 +27,7 @@ const Reminder = ({ onAdicionar }) => {
       params.append('date', date);
 
       await axios.post(
-        "http://localhost:5285/api/Reminder/AddReminder",
+        "https://reminders-api.azurewebsites.net/api/Reminder/AddReminder",
         params,
         {
           headers: {
