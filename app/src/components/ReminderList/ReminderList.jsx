@@ -1,19 +1,23 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
+import { IoReload } from "react-icons/io5";
 import axios from "axios";
 
 import "./ReminderListStyle.scss";
 
 const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
  const [lembretes, setLembretes] = useState([]);
+ const [loading, setLoading] = useState(false);
 
  useEffect(() => {
     const fetchLembretes = async () => {
+      setLoading(true);
       const response = await axios.get(
         "https://reminders-api.azurewebsites.net/api/Reminder/GetReminders"
       );
-      setLembretes(response.data);
+      setLembretes(response.data);  
+      setLoading(false);
     };
 
     fetchLembretes();
@@ -44,37 +48,43 @@ const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
  };
 
  return (
-    <>
-      <h2>Lista de lembretes:</h2>
-
-      {lembretes.map((lembrete, index) => {
-        let agrupar = true;
-        for (let i = index - 1; i >= 0; i--) {
-          if (lembretes[i].data === lembrete.data) {
-            agrupar = false;
-            break;
-          }
+  <>
+  <h2>Lista de lembretes:</h2>
+  {loading ? (
+    <div className="loading">
+      <span>Carregando...</span>
+      <IoReload size={30} color='#6B728E' />
+    </div>
+  ) : (
+    lembretes.map((lembrete, index) => {
+      let agrupar = true;
+      for (let i = index - 1; i >= 0; i--) {
+        if (lembretes[i].data === lembrete.data) {
+          agrupar = false;
+          break;
         }
+      }
 
-        return (
-          <React.Fragment key={lembrete.id}>
-            {agrupar && <h3>{formatarData(lembrete.data)}</h3>}
-            <ul>
-              <li>
-                <div className="card">
-                  {lembrete.nome}
-                  <MdDelete
-                    color="red"
-                    cursor="pointer"
-                    onClick={() => deleteReminder(lembrete.id)}
-                  />
-                </div>
-              </li>
-            </ul>
-          </React.Fragment>
-        );
-      })}
-    </>
+      return (
+        <React.Fragment key={lembrete.id}>
+          {agrupar && <h3>{formatarData(lembrete.data)}</h3>}
+          <ul>
+            <li>
+             <div className="card">
+                {lembrete.nome}
+                <MdDelete
+                  color="red"
+                  cursor="pointer"
+                  onClick={() => deleteReminder(lembrete.id)}
+                />
+             </div>
+            </li>
+          </ul>
+        </React.Fragment>
+      );
+    })
+  )}
+</>
  );
 };
 
