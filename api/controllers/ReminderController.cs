@@ -50,7 +50,6 @@ namespace reminderApi.Controllers
 
     public JsonResult AddReminder([FromForm] string name, [FromForm] DateTime date)
     {
-      // Verificar se a data é futura
       if (date <= DateTime.Now)
       {
           return new JsonResult("Data deve ser futura.");
@@ -77,7 +76,7 @@ namespace reminderApi.Controllers
           }
         }
 
-        return new JsonResult("Added Successfully");
+        return new JsonResult("Lembrete adicionado com sucesso.");
       }
     }
 
@@ -106,7 +105,7 @@ namespace reminderApi.Controllers
           }
         }
 
-        return new JsonResult("Delete Successfully");
+        return new JsonResult("Lembrete deletado com sucesso.");
       }
     }
   }
