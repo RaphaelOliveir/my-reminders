@@ -8,7 +8,19 @@ const Reminder = ({ onAdicionar }) => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
 
+  const validateForm = () => {
+    if (name.trim() === "" || date.trim() === "") {
+      alert("Por favor, preencha todos os campos.");
+      return false;
+    }
+    return true;
+ };
+
   const criarLembrete = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
     try {
       const params = new URLSearchParams();
       params.append('name', name);
@@ -22,7 +34,9 @@ const Reminder = ({ onAdicionar }) => {
             "Content-Type": "application/x-www-form-urlencoded"
           },
         }
-      );
+      ).then(response => {
+        alert(response.data)
+      })
 
       onAdicionar({ nome: name, data: date })
     } catch (error) {
