@@ -36,26 +36,16 @@ const ListaLembretes = () => {
           }
         }
 
-        if (agrupar) {
-          return (
-            <>
-              <h3>{lembrete.data}</h3>
-              <ul>
-                <li key={index}>
-                  <div className="card">{lembrete.nome}</div>
-                </li>
-              </ul>
-            </>
-          );
-        } else {
-          return (
+        return (
+          <React.Fragment key={lembrete.id}>
+            {agrupar && <h3>{lembrete.data}</h3>}
             <ul>
-              <li key={index}>
+              <li>
                 <div className="card">{lembrete.nome}</div>
               </li>
             </ul>
-          );
-        }
+          </React.Fragment>
+        );
       })}
     </>
   );

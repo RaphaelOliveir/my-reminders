@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 import "./ReminderStyle.scss";
@@ -9,10 +9,19 @@ const Reminder = () => {
 
   const criarLembrete = async () => {
     try {
-      await axios.post("http://localhost:5285/api/Reminder/AddReminder", {
-        name: "Comprar coisas",
-        date: "2021-12-31",
-      });
+      const params = new URLSearchParams();
+      params.append('name', name);
+      params.append('date', date);
+
+      await axios.post(
+        "http://localhost:5285/api/Reminder/AddReminder",
+        params,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+        }
+      );
     } catch (error) {
       console.error("Erro ao criar o lembrete:", error);
       alert("Erro ao criar o lembrete.");
@@ -22,15 +31,14 @@ const Reminder = () => {
   return (
     <div className="container">
       <div className="inputs-group">
-
         <div className="name">
-        <h3>Nome:</h3>
-        <input
-          type="text"
-          placeholder="Ex: Comprar pão"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+          <h3>Nome:</h3>
+          <input
+            type="text"
+            placeholder="Ex: Comprar pão"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
 
         <div className="date">
@@ -39,7 +47,7 @@ const Reminder = () => {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-          />          
+          />
         </div>
       </div>
 
