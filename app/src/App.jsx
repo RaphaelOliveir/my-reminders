@@ -3,14 +3,16 @@ import { MdOutlineLibraryBooks } from "react-icons/md";
 
 import './App.scss'
 
-import ListaLembretes from './components/ReminderList/ReminderList'
+import ReminderList from './components/ReminderList/ReminderList'
 import Reminder from './components/Reminder/Reminder';
 
 function App() {
-  const [lembretes, setLembretes] = useState([]);
+  const [reminders, setReminders] = useState([]);
 
-  const adicionarLembrete = (novoLembrete) => {
-    setLembretes([...lembretes, novoLembrete].sort((a, b) => new Date(a.data) - new Date(b.data)));
+  const addReminder = (newReminder) => {
+    setReminders([...reminders, newReminder]
+      .sort((longer, closer) =>
+        new Date(longer.date) - new Date(closer.date)));
   };
 
   return (
@@ -20,11 +22,11 @@ function App() {
         <h1>My Reminders</h1>
       </div>
 
-      <Reminder onAdicionar={adicionarLembrete} />
+      <Reminder onAdd={addReminder} />
 
       <hr />
 
-      <ListaLembretes lembretes={lembretes} atualizarLembretes={adicionarLembrete} />
+      <ReminderList reminders={reminders} updateReminders={addReminder} />
     </>
   )
 }

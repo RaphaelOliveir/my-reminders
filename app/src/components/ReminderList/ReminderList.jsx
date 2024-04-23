@@ -1,91 +1,96 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { IoReload } from "react-icons/io5";
 import axios from "axios";
 
 import "./ReminderListStyle.scss";
 
-const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
- const [lembretes, setLembretes] = useState([]);
- const [loading, setLoading] = useState(false);
+const ReminderList = ({ myReminders, updateReminders }) => {
+  const [reminders, setReminders] = useState([]);
+  const [loading, setLoading] = useState(false);
 
- useEffect(() => {
-    const fetchLembretes = async () => {
+  useEffect(() => {
+    const fetchReminders = async () => {
       setLoading(true);
       const response = await axios.get(
         "https://reminders-api.azurewebsites.net/api/Reminder/GetReminders"
       );
-      setLembretes(response.data);  
+      setReminders(response.data);
       setLoading(false);
     };
 
-    fetchLembretes();
- }, [meusLembretes, atualizarLembretes]);
+    fetchReminders();
+  }, [myReminders, updateReminders]);
 
- const deleteReminder = async (id) => {
-  try {
-    await axios.delete(
-      `https://reminders-api.azurewebsites.net/api/Reminder/DeleteReminder?id=${id}`
-    ).then(reponse => {
-      alert(reponse.data)
-    })
-    const updatedLembretes = lembretes.filter(lembrete => lembrete.id !== id);
-    setLembretes(updatedLembretes);
-  } catch (error) {
-    alert("Erro ao tentar deletar lembrete.");
+  const deleteReminder = async (id) => {
+    try {
+      await axios.delete(
+        `https://reminders-api.azurewebsites.net/api/Reminder/DeleteReminder?id=${id}`
+      ).then(response => {
+        alert(response.data)
+      })
+      const updatedReminders = reminders.filter(reminder => reminder.id !== id);
+      setReminders(updatedReminders);
+    } catch (error) {
+      alert("Erro ao tentar deletar lembrete.");
+    }
   }
- }
 
- // Função para formatar a data
- const formatarData = (data) => {
-    const dataFormatada = new Date(data).toLocaleDateString('pt-BR', {
+  const formatDate = (date) => {
+    const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric'
     });
-    return dataFormatada;
- };
+    return formattedDate;
+  };
 
- return (
-  <>
-  <h2>Lista de lembretes:</h2>
-  {loading ? (
-    <div className="loading">
-      <span>Carregando...</span>
-      <IoReload size={30} color='#6B728E' />
-    </div>
-  ) : (
-    lembretes.map((lembrete, index) => {
-      let agrupar = true;
-      for (let i = index - 1; i >= 0; i--) {
-        if (lembretes[i].data === lembrete.data) {
-          agrupar = false;
-          break;
-        }
-      }
+  return (
+    <>
+      <h2>Lista de lembretes</h2>
+      {loading ? (
+        <div className="loading">
+          <span>Carregando...</span>
+          <IoReload size={30} color='#6B728E' />
+        </div>
+      ) : (
+        reminders.map((reminder, index) => {
+          let group = true;
+          for (let i = index - 1; i >= 0; i--) {
+            if (reminders[i].data === reminder.data) {
+              group = false;
+              break;
+            }
+          }
 
-      return (
-        <React.Fragment key={lembrete.id}>
-          {agrupar && <h3>{formatarData(lembrete.data)}</h3>}
-          <ul>
-            <li>
-             <div className="card">
-                {lembrete.nome}
-                <MdDelete
-                  color="red"
-                  cursor="pointer"
-                  onClick={() => deleteReminder(lembrete.id)}
-                />
-             </div>
-            </li>
-          </ul>
-        </React.Fragment>
-      );
-    })
-  )}
-</>
- );
+          return (
+            <div key={reminder.id}>
+              {
+                group
+                &&
+                <h3>
+                  {formatDate(reminder.data)}
+                </h3>
+              }
+              <ul>
+                <li>
+                  <div className="card">
+                    {reminder.nome}
+                    <MdDelete
+                      color="red"
+                      cursor="pointer"
+                      onClick={() => deleteReminder(reminder.id)}
+                    />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          );
+        })
+      )}
+    </>
+  );
 };
 
-export default ListaLembretes;
+export default ReminderList;

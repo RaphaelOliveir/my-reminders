@@ -4,19 +4,19 @@ import axios from "axios";
 
 import "./ReminderStyle.scss";
 
-const Reminder = ({ onAdicionar }) => {
+const Reminder = ({ onAdd }) => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
 
   const validateForm = () => {
     if (name.trim() === "" || date.trim() === "") {
-      alert("Por favor, preencha todos os campos.");
+      alert("Todos os campos são obrigatórios");
       return false;
     }
     return true;
- };
+  };
 
-  const criarLembrete = async () => {
+  const createReminder = async () => {
     if (!validateForm()) {
       return;
     }
@@ -38,10 +38,9 @@ const Reminder = ({ onAdicionar }) => {
         alert(response.data)
       })
 
-      onAdicionar({ nome: name, data: date })
+      onAdd({ name: name, date: date })
     } catch (error) {
-      console.error("Erro ao criar o lembrete:", error);
-      alert("Erro ao criar o lembrete.");
+      alert("Erro ao criar lembrete.");
     }
   };
 
@@ -68,7 +67,7 @@ const Reminder = ({ onAdicionar }) => {
         </div>
       </div>
 
-      <button onClick={criarLembrete}>Criar Lembrete</button>
+      <button onClick={createReminder}>Criar lembrete</button>
     </div>
   );
 };
