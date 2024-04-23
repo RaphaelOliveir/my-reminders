@@ -50,6 +50,12 @@ namespace reminderApi.Controllers
 
     public JsonResult AddReminder([FromForm] string name, [FromForm] DateTime date)
     {
+      // Verificar se a data é futura
+      if (date <= DateTime.Now)
+      {
+          return new JsonResult("Data deve ser futura.");
+      }
+
       string query = "INSERT INTO dbo.reminders (nome, data) VALUES (@name, @date)";
       DataTable table = new DataTable();
       string sqlDataSource = _configuration?.GetConnectionString("reminderDBCon") ?? string.Empty;
