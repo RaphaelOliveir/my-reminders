@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
+import { MdDelete } from "react-icons/md";
 import axios from "axios";
 
 import "./ReminderListStyle.scss";
@@ -17,6 +18,20 @@ const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
 
     fetchLembretes();
  }, [meusLembretes, atualizarLembretes]);
+
+ const deleteReminder = async (id) => {
+  try {
+    await axios.delete(
+      `http://localhost:5285/api/Reminder/DeleteReminder?id=${id}`
+    ).then(reponse => {
+      alert(reponse.data)
+    })
+    const updatedLembretes = lembretes.filter(lembrete => lembrete.id !== id);
+    setLembretes(updatedLembretes);
+  } catch (error) {
+    alert("Erro ao tentar deletar lembrete.");
+  }
+ }
 
  // Função para formatar a data
  const formatarData = (data) => {
@@ -46,7 +61,14 @@ const ListaLembretes = ({ meusLembretes, atualizarLembretes }) => {
             {agrupar && <h3>{formatarData(lembrete.data)}</h3>}
             <ul>
               <li>
-                <div className="card">{lembrete.nome}</div>
+                <div className="card">
+                  {lembrete.nome}
+                  <MdDelete
+                    color="red"
+                    cursor="pointer"
+                    onClick={() => deleteReminder(lembrete.id)}
+                  />
+                </div>
               </li>
             </ul>
           </React.Fragment>
