@@ -80,6 +80,7 @@ const ReminderList = ({ myReminders, updateReminders }) => {
                     <MdDelete
                       color="red"
                       cursor="pointer"
+                      data-testid="delete-reminder-icon"
                       onClick={() => deleteReminder(reminder.id)}
                     />
                   </div>

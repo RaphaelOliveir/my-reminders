@@ -62,6 +62,7 @@ const Reminder = ({ onAdd }) => {
           <input
             type="date"
             value={date}
+            data-testid="date-input"
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
