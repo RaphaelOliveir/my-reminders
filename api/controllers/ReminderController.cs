@@ -22,7 +22,7 @@ namespace reminderApi.Controllers
 
     public JsonResult GetReminders()
     {
-      string query = "SELECT * FROM dbo.reminders";
+      string query = "SELECT * FROM dbo.reminders ORDER BY data ASC";
       DataTable table = new DataTable();
       string sqlDataSource = _configuration?.GetConnectionString("reminderDBCon") ?? string.Empty;
       SqlDataReader myReader;
