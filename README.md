@@ -6,11 +6,11 @@
 </div>
 
 
-## 📜Sobre
+## 📜 Sobre
 Sistema de criação e listagem de lembretes para processo seletivo da vaga de estágio em desenvolvimento de software na [DTI Digital](https://www.dtidigital.com.br/).
 
-## 🛠Funcionalidades
-- Criaçaõ de um novo lembrete
+## 🛠 Funcionalidades
+- Criação de um novo lembrete
 - Listagem de lembretes por data de criação
 - Remoção de lembrete
 
@@ -30,12 +30,15 @@ Sistema de criação e listagem de lembretes para processo seletivo da vaga de e
 - Biblioteca de ícones **react-icon**
 - **Pre-processador de css** para variáveis de cores
 
+## ✅ Observações de testes
+Devido ao prazo, foi realizado apenas testes no frontend, utilizando Jest e react testing library. O relatório de coverage mostrou que não houve uma cobertura total.
+
 ## 🏠 Deploy
 - Deploy da API pelo **Azure**
 - **SQLServer** criado no Azure para melhor integração com a API
 - Deploy do frontend no **GitHub Pages**
 
-## 🤖Tecnologias
+## 🤖 Tecnologias
 - <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" width="30" height="30"/> C#
 - <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" width="30" height="30"/> DotNetCore
 - <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" width="30" height="30"/> ReactJS
